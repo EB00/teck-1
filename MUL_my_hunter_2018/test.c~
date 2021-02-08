@@ -1,0 +1,10 @@
+enum indexes {
+    PLAYER,
+    ENENMY,
+    BACKGROUND
+};
+
+void test()
+{
+    sf_Texture textureTab[7];
+}

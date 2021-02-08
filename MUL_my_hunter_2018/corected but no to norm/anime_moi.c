@@ -1,0 +1,429 @@
+/*
+** EPITECH PROJECT, 2018
+** how to anim a sprite
+** File description:
+** hunter
+*/
+
+#include <SFML/Graphics.h>
+#include <SFML/System.h>
+#include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Config.h>
+#include <SFML/Audio.h>
+#include <SFML/Graphics/Export.h>
+#include <SFML/Window/Export.h>
+#include <SFML/Window/Types.h>
+#include <SFML/Window/Mouse.h>
+#include <SFML/System/Vector2.h>
+#include <stdio.h>
+#include <stdlib.h>
+void game_over(int point)
+{
+    sfRenderWindow *window;
+    sfVideoMode video_mode;
+    sfTexture* texture;
+    sfTexture* texture1;
+    sfSprite* sprite;
+    sfSprite* sprite1;
+    sfVector2f position;
+    sfEvent event;
+    sfIntRect rect;//
+    sfClock *clock;
+    sfTime time;
+    float seconds;
+    int second = 0;
+    sfMusic* music;
+
+    rect.top = 0;
+    rect.left = 0;
+    rect.width = 200;
+    rect.height = 186;
+
+    video_mode.width = 960;
+    video_mode.height = 680;
+    video_mode.bitsPerPixel = 32;
+
+    window = sfRenderWindow_create(video_mode,
+                                   "GAME OVER",
+                                   sfResize | sfClose,
+                                   NULL);
+    sfRenderWindow_setFramerateLimit(window, 100);//
+    sprite = sfSprite_create();
+    sprite1 = sfSprite_create();//
+    texture = sfTexture_createFromFile("GAME_OVER.png", NULL);
+    texture1 = sfTexture_createFromFile("AK.png", NULL);//
+    sfSprite_setTexture(sprite, texture, sfTrue);
+    sfSprite_setTexture(sprite1, texture1, sfTrue);
+    clock = sfClock_create();
+
+    music = sfMusic_createFromFile("END.ogg");
+    sfMusic_play(music);
+
+    
+    while(sfRenderWindow_isOpen(window)){
+	position.x = 10;
+	position.y = 10;
+  
+	sfSprite_setPosition (sprite1, position);
+
+	//       sfSprite_setTextureRect(sprite1, rect);
+
+	time = sfClock_getElapsedTime(clock);
+	seconds = time.microseconds / 1000000.0;
+	if(seconds > 1.0) 
+	    rect.left += 200;
+	if(seconds > second + 1) {
+	    position.x += 1;
+	    position.y += 1;
+	}
+	if( rect.left > 200)
+	    rect.left = 0;
+	time.microseconds = 0;///
+	sfSprite_setPosition (sprite1, position);
+	sfSprite_setTextureRect(sprite1, rect);
+
+	
+	sfRenderWindow_clear(window, sfBlack);
+//	sfRenderWindow_display(window);
+	sfRenderWindow_drawSprite(window, sprite, NULL);
+	sfRenderWindow_drawSprite(window, sprite1, NULL);
+	while (sfRenderWindow_pollEvent(window, &event)){
+	    if (event.type == sfEvtMouseButtonPressed)///>>>>>>>>>><<<<<<<<<<<<<<<
+		return(0);
+	    if (event.type == sfEvtClosed)
+//		sfRenderWindow_clear(window, sfBlack);
+		sfRenderWindow_close(window);
+
+	}
+	sfRenderWindow_display(window); 
+    }
+    printf("vous avez %d point\n", point);
+    sfSprite_destroy(sprite);
+    sfSprite_destroy(sprite1);
+    sfTexture_destroy(texture);
+    sfTexture_destroy(texture1);
+    sfRenderWindow_destroy(window);
+}
+    
+int read_h(int ac, char **av){
+    char *recup = av[1];
+    char rep[] = "-h";
+    int i = 0;
+    printf("char av[1] = %s\n", av[1]);
+    printf("rep = %s | recup = %s\n", rep, recup);
+    if (recup == NULL)
+	return (0);
+    if(recup[0] == '-' && recup[1] == 'h'){
+
+	sfRenderWindow *window;
+	sfVideoMode video_mode;
+	sfTexture* texture;
+	sfSprite* sprite;
+	sfEvent event;
+	sfMusic* music;
+        
+	video_mode.width = 1600;
+	video_mode.height = 909;
+	video_mode.bitsPerPixel = 32;
+	
+	window = sfRenderWindow_create(video_mode,
+				       "RULES",
+				       sfResize | sfClose,
+				       NULL);
+	sprite = sfSprite_create();
+	texture = sfTexture_createFromFile("help.jpeg", NULL);
+	sfSprite_setTexture(sprite, texture, sfTrue);
+	music = sfMusic_createFromFile("HELP.ogg");
+	sfMusic_play(music);
+	
+	while(sfRenderWindow_isOpen(window)){
+	    sfRenderWindow_clear(window, sfBlack);
+	    sfRenderWindow_drawSprite(window, sprite, NULL);
+	    while (sfRenderWindow_pollEvent(window, &event)){
+		if (event.type == sfEvtMouseButtonPressed){///>>>>>>>>>><<<<<<<<<<<<<<<
+		    sfMusic_destroy(music);
+		    sfSprite_destroy(sprite);
+		    sfTexture_destroy(texture);
+		    sfRenderWindow_destroy(window);
+		    return (0);
+		}
+		if (event.type == sfEvtClosed)
+		    sfRenderWindow_close(window);
+
+	    }
+	    sfRenderWindow_display(window);
+	}
+	sfMusic_destroy(music);
+	sfSprite_destroy(sprite);
+	sfTexture_destroy(texture);
+	sfRenderWindow_destroy(window);
+    }
+    return(0);
+}
+
+int main(int ac, char **av)
+{
+    sfRenderWindow *window;
+    sfWindow* window2;
+    sfVideoMode video_mode;
+    sfTexture* texture;
+    sfTexture* texture1;
+    sfTexture* texture2;
+    sfTexture* texture3;
+    sfTexture* texture4;
+    sfTexture* texture5;
+    sfTexture* texture6;
+    sfTexture* texture7;
+    sfSprite* sprite;
+    sfSprite* sprite1;
+    sfSprite* sprite2;
+    sfSprite* sprite3;
+    sfSprite* sprite4;
+    sfSprite* sprite5;
+    sfSprite* sprite6;
+    sfSprite* sprite7;
+    sfEvent event;
+    sfEvent event1;
+    sfEvent event3;
+    sfVector2f position;
+    sfVector2f origin;
+    sfVector2f position1;
+    sfVector2f position2;
+    sfVector2f position3;
+    sfVector2f position4;
+    sfVector2f position5;
+    sfVector2f position_s;//
+    sfVector2f positiontar;
+    sfIntRect rect;//
+    sfIntRect rect1;
+    sfIntRect rect2;
+    sfIntRect rect3;
+    sfIntRect rect4;
+    sfClock *clock;
+    sfTime time;
+    float seconds;
+    int tour = 0;
+    int a = 0;
+    int z = 0;
+    int point = 0;
+    int compt = 0;
+    int compt1 = 0;
+    int compt2 = 0;
+    int level = 10;
+    int speed = 1;
+    sfMusic* music;
+    
+    read_h(ac, av);
+    
+    rect.top = 0;
+    rect.left = 0;
+    rect.width = 110;
+    rect.height = 110;
+
+    rect1.top = 0;
+    rect1.left = 0;
+    rect1.width = 200;
+    rect1.height = 66;
+
+    rect2.top = 0;
+    rect2.left = 0;
+    rect2.width = 40;
+    rect2.height = 40;
+
+    rect3.top = 0;
+    rect3.left = 0;
+    rect3.width = 40;
+    rect3.height = 40;
+
+    rect4.top = 0;
+    rect4.left = 0;
+    rect4.width = 40;
+    rect4.height = 40;
+
+    video_mode.width = 1600;
+    video_mode.height = 909;
+    video_mode.bitsPerPixel = 32;
+
+    window = sfRenderWindow_create(video_mode,
+				   "Phoenix",
+				   sfResize | sfClose,
+				   NULL);
+    sfRenderWindow_setFramerateLimit(window, 100);//
+    sfRenderWindow_setMouseCursorVisible(window, 0);
+    clock = sfClock_create();
+    sprite = sfSprite_create();
+    sprite2 = sfSprite_create();
+    sprite1 = sfSprite_create();
+    sprite3 = sfSprite_create();
+    sprite4 = sfSprite_create();
+    sprite5 = sfSprite_create();
+    sprite6 = sfSprite_create();
+    sprite7 = sfSprite_create();
+    texture = sfTexture_createFromFile("SAO.jpg", NULL);
+    texture1 = sfTexture_createFromFile("AKATSUKI_LOG1.png", NULL);
+    texture2 = sfTexture_createFromFile("DUCK.png", NULL);
+    texture3 = sfTexture_createFromFile("LIFE.png", NULL);
+    texture4 = sfTexture_createFromFile("TAR.png", NULL);
+    texture5 = sfTexture_createFromFile("index.jpg", NULL);
+    texture6 = sfTexture_createFromFile("index.jpg", NULL);
+    texture7 = sfTexture_createFromFile("index.jpg", NULL);
+    sfSprite_setTexture(sprite, texture, sfTrue);
+    sfSprite_setTexture(sprite1, texture1, sfTrue);
+    sfSprite_setTexture(sprite2, texture2, sfTrue);
+    sfSprite_setTexture(sprite3, texture3, sfTrue);
+    sfSprite_setTexture(sprite4, texture4, sfTrue);
+    sfSprite_setTexture(sprite5, texture5, sfTrue);
+    sfSprite_setTexture(sprite6, texture6, sfTrue);
+    sfSprite_setTexture(sprite7, texture7, sfTrue);
+    origin.x = -200;
+    origin.y = -200;
+    sfSprite_setOrigin (sprite1, origin);
+    // sfSprite_setTextureRect(sprite2, rect);
+    music = sfMusic_createFromFile("SHIKABANE.ogg");
+
+    sfMusic_play(music);
+
+    position.x = 0;
+    position.y = 1;
+
+    position2.x = 1400;
+    position2.y = 1;
+
+    position1.x = 1200;
+    position3.x = 1350;
+    position3.y = 10;
+    position4.x = 1300;
+    position4.y = 10;
+    position5.x = 1250;
+    position5.y = 10;
+    sfSprite_setPosition (sprite5, position3);
+    sfSprite_setPosition (sprite6, position4);
+    sfSprite_setPosition (sprite7, position5);
+    
+    while (sfRenderWindow_isOpen(window))
+    {
+	sfSprite_setTextureRect(sprite2, rect);
+	sfSprite_setTextureRect(sprite3, rect1);
+        sfSprite_setTextureRect(sprite5, rect2);
+	sfSprite_setTextureRect(sprite6, rect3);
+        sfSprite_setTextureRect(sprite7, rect4);
+
+
+	if (compt > 9){
+	    compt = 0;
+	    compt1 ++;
+	    rect2.left = 0;
+	    rect3.left += 42;
+	}
+	if (compt1 > 9){
+            compt1 = 0;
+            compt2 ++;
+            rect3.left = 0;
+	    rect4.left += 42;
+	}   
+	if(rect2.left > 410)
+	    rect2.left = 0;
+	a = sfMouse_getPositionRenderWindow(window).x;//
+	z = sfMouse_getPositionRenderWindow(window).y;//
+	positiontar.x = a - 40;
+	positiontar.y = z - 40;
+//	position1.x = 1200;
+	position1.y = z - 290;
+	time = sfClock_getElapsedTime(clock); //
+	seconds = time.microseconds / 10000000.0;
+	if (seconds > 0.01) {
+	    rect.left += 110;
+	    if (rect.left >= 330)
+		rect.left = 0;
+	    sfClock_restart(clock);
+
+	}
+	position1.x = 1200; // a - 230;
+	position.x += speed;
+
+	if (point > level){
+	    speed += 1;
+	    level += 20;
+	}
+	if (position.x > 1610){
+	    position.x = 0;
+	    position.y += 50;
+	    tour += 1;
+	    rect1.left -= 66;
+	}
+	
+	if(position.y > 850)
+	    position.y = 1;
+	//printf("tour = %d\n", tour);
+	sfSprite_setPosition (sprite2, position);
+	sfSprite_setPosition (sprite1, position1);
+	sfSprite_setPosition (sprite3, position2);
+	sfSprite_setPosition (sprite4, positiontar);
+//	sfSprite_setPosition (sprite5, position3);
+	sfSprite_setTexture(sprite1, texture1, sfTrue);
+	sfRenderWindow_clear(window, sfBlack);
+	sfRenderWindow_drawSprite(window, sprite, NULL);
+	sfRenderWindow_drawSprite(window, sprite3, NULL);
+	sfRenderWindow_drawSprite(window, sprite2, NULL);
+	sfRenderWindow_drawSprite(window, sprite5, NULL);//
+        sfRenderWindow_drawSprite(window, sprite6, NULL);
+        sfRenderWindow_drawSprite(window, sprite7, NULL);
+	sfRenderWindow_drawSprite(window, sprite1, NULL);
+	sfRenderWindow_drawSprite(window, sprite4, NULL);
+	sfRenderWindow_display(window);
+
+	if (tour == 3){
+	    // sfSprite_destroy(sprite);
+	    sfMusic_destroy(music);
+	    sfSprite_destroy(sprite1);
+	    sfSprite_destroy(sprite2);
+	    sfSprite_destroy(sprite3);
+	    sfSprite_destroy(sprite4);
+	    sfSprite_destroy(sprite5);
+            sfSprite_destroy(sprite6);
+            sfSprite_destroy(sprite7);
+	    //sfTexture_destroy(texture);
+	    sfTexture_destroy(texture1);
+	    sfTexture_destroy(texture2);
+	    sfTexture_destroy(texture3);
+	    sfTexture_destroy(texture4);
+	    sfTexture_destroy(texture5);
+            sfTexture_destroy(texture6);
+            sfTexture_destroy(texture7);
+	    sfRenderWindow_destroy(window);
+	    game_over(point);
+	    printf("vous avez %d point\n", point);
+	    return (0);
+	}
+	while (sfRenderWindow_pollEvent(window, &event)){
+	    if (event.type == sfEvtMouseButtonPressed){///>>>>>>>>>><<<<<<<<<<<<<<<
+		if(a > position.x && a < position.x + 100 && z > position.y && z < position.y + 100){
+		    position.x = 0;
+		    position.y = a;
+		    position1.x = a;
+		    point++;
+		    compt++;
+		    rect2.left += 41;
+		}
+
+	    }
+	    if (event.type == sfEvtClosed)
+		sfRenderWindow_close(window);
+	}
+    }
+    printf("vous avez %d point\n", point);
+    sfMusic_destroy(music);
+    sfSprite_destroy(sprite);
+    sfSprite_destroy(sprite1);
+    sfSprite_destroy(sprite2);
+    sfSprite_destroy(sprite3);
+    sfSprite_destroy(sprite4);
+    sfTexture_destroy(texture);
+    sfTexture_destroy(texture1);
+    sfTexture_destroy(texture2);
+    sfTexture_destroy(texture3);
+    sfTexture_destroy(texture4);
+    sfRenderWindow_destroy(window);
+    return (0);
+}
+    

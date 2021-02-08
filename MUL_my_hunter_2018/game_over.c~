@@ -1,0 +1,81 @@
+void game_over(int point)
+{
+    sfRenderWindow *window;
+    sfVideoMode video_mode;
+    sfTexture* texture;
+    sfTexture* texture1;
+    sfSprite* sprite;
+    sfSprite* sprite1;
+    sfVector2f position;
+    sfEvent event;
+    sfIntRect rect;//                                                                         
+    sfClock *clock;
+    sfTime time;
+    float seconds;
+    int second = 0;
+    sfMusic* music;
+
+    rect.top = 0;
+    rect.left = 0;
+    rect.width = 200;
+    rect.height = 186;
+
+    video_mode.width = 960;
+    video_mode.height = 680;
+    video_mode.bitsPerPixel = 32;
+
+    window = sfRenderWindow_create(video_mode,
+                                   "GAME OVER",
+                                   sfResize | sfClose,
+                                   NULL);
+    sfRenderWindow_setFramerateLimit(window, 100);//                                          
+    sprite = sfSprite_create();
+    sprite1 = sfSprite_create();//                                                            
+    texture = sfTexture_createFromFile("GAME_OVER.png", NULL);
+    texture1 = sfTexture_createFromFile("AK.png", NULL);//                                    
+    sfSprite_setTexture(sprite, texture, sfTrue);
+    sfSprite_setTexture(sprite1, texture1, sfTrue);
+    clock = sfClock_create();
+
+    music = sfMusic_createFromFile("END.ogg");
+    sfMusic_play(music);
+
+
+    while(sfRenderWindow_isOpen(window)){
+        position.x = 10;
+        position.y = 10;
+
+        sfSprite_setPosition (sprite1, position);
+        time = sfClock_getElapsedTime(clock);
+        seconds = time.microseconds / 1000000.0;
+	if(seconds > 1.0)
+            rect.left += 200;
+        if(seconds > second + 1) {
+            position.x += 1;
+            position.y += 1;
+        }
+        if( rect.left > 200)
+            rect.left = 0;
+        time.microseconds = 0;///
+	sfSprite_setPosition (sprite1, position);
+        sfSprite_setTextureRect(sprite1, rect);
+
+
+        sfRenderWindow_clear(window, sfBlack);
+        sfRenderWindow_drawSprite(window, sprite, NULL);
+        sfRenderWindow_drawSprite(window, sprite1, NULL);
+        while (sfRenderWindow_pollEvent(window, &event)){
+            if (event.type == sfEvtMouseButtonPressed)///>>>>>>>>>><<<<<<<<<<<<<<<            
+                exit (0);
+            if (event.type == sfEvtClosed)
+                sfRenderWindow_close(window);
+
+        }
+        sfRenderWindow_display(window);
+    }
+    sfSprite_destroy(sprite);
+    sfSprite_destroy(sprite1);
+    sfTexture_destroy(texture);
+    sfTexture_destroy(texture1);
+    sfRenderWindow_destroy(window);
+}

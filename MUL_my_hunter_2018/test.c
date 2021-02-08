@@ -1,0 +1,17 @@
+enum indexes {
+    PLAYER = 4,
+    ENENMY,
+    BACKGROUND
+};
+
+sf_Texture setPathTexture(sf_Texture *tab, char *path, int index)
+{
+    tab[index].setTexture(path);
+    return (tab);
+}
+
+void test()
+{
+    sf_Texture textureTab[7];
+    textureTab[PLAYER]
+}
